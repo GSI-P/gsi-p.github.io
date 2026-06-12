@@ -1,20 +1,71 @@
 import bibtexparser
 from collections import defaultdict
+import re
 
 
 # --------------------------
-# Read BibTeX file
+# Helper functions
 # --------------------------
 
-with open("publications.bib", encoding="utf-8") as bibfile:
-    bib = bibtexparser.load(bibfile)
+def short_authors(author_string, max_authors=5):
+    authors = author_string.split(" and ")
+
+    short = []
+
+    for a in authors[:max_authors]:
+        names = a.split(",")
+
+        if len(names) == 2:
+            last = names[0].strip()
+            first = names[1].strip()
+
+            initials = " ".join([x[0]+"." for x in first.split()])
+            short.append(f"{initials} {last}")
+
+        else:
+            short.append(a)
+
+    if len(authors) > max_authors:
+        short.append("et al.")
+
+    return ", ".join(short)
+
+
+def clean_latex(text):
+    """
+    Basic LaTeX accent cleaning
+    """
+    replacements = {
+        r"{\'a}": "á",
+        r"{\'e}": "é",
+        r"{\'i}": "í",
+        r"{\'o}": "ó",
+        r"{\'u}": "ú",
+        r"{\'A}": "Á",
+        r"{\'E}": "É",
+        r"{\'I}": "Í",
+        r"{\'O}": "Ó",
+        r"{\'U}": "Ú",
+        r"{\~n}": "ñ",
+        r"{\~N}": "Ñ"
+    }
+
+    for k, v in replacements.items():
+        text = text.replace(k, v)
+
+    return text
 
 
 # --------------------------
-# Group papers by area
+# Read bib
 # --------------------------
+
+with open("publications.bib", encoding="utf-8") as f:
+    bib = bibtexparser.load(f)
+
 
 areas = defaultdict(list)
+
 
 for paper in bib.entries:
 
@@ -22,85 +73,198 @@ for paper in bib.entries:
     areas[area].append(paper)
 
 
-# Sort papers by year (newest first)
 for area in areas:
     areas[area].sort(
-        key=lambda x: int(x.get("year", 0)),
+        key=lambda x: int(x.get("year",0)),
         reverse=True
     )
 
 
-# Sort areas alphabetically
-sorted_areas = sorted(areas.keys())
-
-
 # --------------------------
-# Generate HTML
+# Start HTML
 # --------------------------
 
-html = []
+html = """
 
-html.append("""
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>
+GSIP Publications
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+rel="stylesheet">
+
+
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<nav>
+
+<a href="index.html#research">
+Research
+</a>
+
+<a href="index.html#people">
+People
+</a>
+
+<a href="publications.html">
+Publications
+</a>
+
+<a href="index.html#projects">
+Projects
+</a>
+
+<a href="index.html#contact">
+Contact
+</a>
+
+</nav>
+
+</header>
+
+
 <section id="publications">
 
-<h2>Publications</h2>
+
+<h1>
+Publications
+</h1>
+
 
 <p>
 Selected scientific publications organized by research area.
 </p>
 
-""")
+"""
 
 
-for area in sorted_areas:
+# --------------------------
+# Add papers
+# --------------------------
 
-    html.append(f"""
-    <div class="pub-area">
-        <h3>{area}</h3>
-    """)
+for area in sorted(areas):
 
-    for paper in areas[area]:
+    html += f"""
 
-        title = paper.get("title", "No title")
-        authors = paper.get("author", "")
-        journal = paper.get("journal", "")
-        year = paper.get("year", "")
+<div class="pub-area">
 
-        # Make authors more readable
-        authors = authors.replace(" and ", ", ")
+<h2>
+{area}
+</h2>
 
-        html.append(f"""
-        <div class="paper">
+"""
 
-            <div class="paper-title">
-                {title}
-            </div>
+    for p in areas[area]:
 
-            <div class="paper-authors">
-                {authors}
-            </div>
+        title = clean_latex(
+            p.get("title","")
+        )
 
-            <div class="paper-journal">
-                <i>{journal}</i> ({year})
-            </div>
+        authors = clean_latex(
+            short_authors(
+                p.get("author","")
+            )
+        )
 
-        </div>
-        """)
+        journal = clean_latex(
+            p.get("journal","")
+        )
 
-    html.append("</div>")
+        year = p.get("year","")
+
+        doi = p.get("doi","")
 
 
-html.append("""
+        html += """
+<div class="paper">
+"""
+
+
+        html += f"""
+<div class="paper-title">
+{title}
+</div>
+
+<div class="paper-authors">
+{authors}
+</div>
+
+<div class="paper-journal">
+<i>{journal}</i> ({year})
+</div>
+"""
+
+
+        if doi:
+
+            html += f"""
+<div class="paper-doi">
+<a href="https://doi.org/{doi}" target="_blank">
+DOI: {doi}
+</a>
+</div>
+"""
+
+
+        html += """
+</div>
+"""
+
+
+    html += """
+</div>
+"""
+
+
+html += """
+
 </section>
-""")
+
+
+</body>
+
+</html>
+
+"""
 
 
 # --------------------------
-# Save HTML
+# Save
 # --------------------------
 
-with open("publications.html", "w", encoding="utf-8") as outfile:
-    outfile.write("\n".join(html))
+with open(
+    "publications.html",
+    "w",
+    encoding="utf-8"
+) as f:
+
+    f.write(html)
 
 
-print("publications.html generated successfully")
+print(
+"GSIP publications page generated successfully."
+)
