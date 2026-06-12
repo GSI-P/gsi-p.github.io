@@ -46,6 +46,10 @@ nav a {
 
 }
 
+.hero img {
+    max-width:800px;
+    width:90%;
+}
 
 h1 {
 
