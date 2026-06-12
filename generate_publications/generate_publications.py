@@ -32,9 +32,9 @@ PUBLICATION_TYPES = [
 THESIS_PROJECT_TYPES = [
     "PhD Thesis",
     "Master's Thesis",
-    "Undergraduate Project",
-    "Poster",
-    "Technical Report"
+    "Undergraduate Projects",
+    "Posters",
+    "Technical Reports"
 ]
 
 
@@ -255,7 +255,16 @@ def format_entry(entry):
                 + ", ".join(details)
                 + '</div>\n'
             )
+        
+        doi = entry.get("doi", "")
 
+        if doi:
+            html += (
+                f'<div class="paper-journal">'
+                f'<a href="https://doi.org/{doi}" target="_blank">'
+                f'DOI</a>'
+                f'</div>\n'
+            )
     # Theses, projects, posters, reports
     else:
 
