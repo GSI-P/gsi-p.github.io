@@ -23,34 +23,76 @@ VALID_EXTENSIONS = {
 
 
 # -------------------------------------------------
-# HTML templates
+# Common GSIP header
 # -------------------------------------------------
 
-HTML_HEADER = """
+def html_header(title):
+
+    return f"""
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>GSIP - Gallery</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>{title} - GSIP</title>
+
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet">
+
 
 <link rel="stylesheet" href="style.css">
 
+</head>
+
+
+<body>
+
+
+<header>
+
+<nav>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#people">People</a>
+    <a href="publications.html">Publications</a>
+    <a href="theses_projects.html">Theses & Projects</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="index.html#contact">Contact</a>
+</nav>
+
+</header>
+
+
+<section id="publications">
+
+<h1>{title}</h1>
+
+"""
+    
+
+# -------------------------------------------------
+# Gallery CSS
+# -------------------------------------------------
+
+GALLERY_STYLE = """
 <style>
 
-/* Gallery title */
-
-.gallery-header {
-    text-align: center;
-    margin: 40px;
-}
-
-
-/* Masonry style gallery */
-
 .photo-gallery {
+
     column-count: 4;
     column-gap: 15px;
     padding: 20px;
@@ -58,12 +100,17 @@ HTML_HEADER = """
 
 
 .photo-gallery img {
+
     width: 100%;
     margin-bottom: 15px;
+
     border-radius: 12px;
+
     display: block;
 
-    transition: 
+    cursor: pointer;
+
+    transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
 }
@@ -77,8 +124,6 @@ HTML_HEADER = """
         0 10px 25px rgba(0,0,0,0.35);
 }
 
-
-/* Responsive */
 
 @media (max-width: 1100px) {
 
@@ -103,36 +148,117 @@ HTML_HEADER = """
     }
 }
 
+
+
+/* Lightbox */
+
+#lightbox {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.9);
+
+    z-index: 1000;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+#lightbox img {
+
+    max-width: 90%;
+    max-height: 90%;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,0.8);
+}
+
 </style>
 
-</head>
-
-
-<body>
-
-
-<div class="gallery-header">
-
-<h1>
-GSIP Lab Gallery
-</h1>
-
-
-<p>
-Research activities, experiments, conferences,
-students, collaborations and everyday moments.
-</p>
-
-</div>
-
-
 <div class="photo-gallery">
-
 """
 
 
+# -------------------------------------------------
+# Footer + JavaScript
+# -------------------------------------------------
+
 HTML_FOOTER = """
 </div>
+
+
+<div id="lightbox">
+
+    <img id="lightbox-img" src="">
+
+</div>
+
+
+<script>
+
+
+const images =
+    document.querySelectorAll(".photo-gallery img");
+
+
+const lightbox =
+    document.getElementById("lightbox");
+
+
+const lightboxImg =
+    document.getElementById("lightbox-img");
+
+
+
+images.forEach(img => {
+
+    img.addEventListener("click", () => {
+
+        lightboxImg.src = img.src;
+
+        lightbox.style.display = "flex";
+
+    });
+
+});
+
+
+
+lightbox.addEventListener("click", () => {
+
+    lightbox.style.display = "none";
+
+});
+
+
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        lightbox.style.display = "none";
+
+    }
+
+});
+
+
+</script>
+
+
+</section>
+
 
 </body>
 
@@ -147,22 +273,26 @@ HTML_FOOTER = """
 def main():
 
     if not IMAGE_DIR.exists():
+
         print(
             f"ERROR: Directory not found: {IMAGE_DIR}"
         )
+
         return
 
 
     images = sorted(
+
         [
             f
+
             for f in IMAGE_DIR.iterdir()
-            if (
-                f.is_file()
-                and f.suffix.lower()
-                in VALID_EXTENSIONS
-            )
+
+            if f.is_file()
+            and f.suffix.lower()
+            in VALID_EXTENSIONS
         ]
+
     )
 
 
@@ -171,17 +301,20 @@ def main():
     )
 
 
-    html = HTML_HEADER
+    html = html_header("GSI-P photo-gallery")
+
+
+    html += GALLERY_STYLE
 
 
     for img in images:
 
-        relative_path = (
-            "images/photos/" + img.name
-        )
+
+        path = "images/photos/" + img.name
+
 
         html += (
-            f'    <img src="{relative_path}" '
+            f'<img src="{path}" '
             f'alt="{img.stem}">\n'
         )
 

@@ -3,26 +3,59 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>GSIP - Gallery</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>GSI-P photo-gallery - GSIP</title>
+
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
+      rel="stylesheet">
+
 
 <link rel="stylesheet" href="style.css">
 
+</head>
+
+
+<body>
+
+
+<header>
+
+<nav>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#people">People</a>
+    <a href="publications.html">Publications</a>
+    <a href="theses_projects.html">Theses & Projects</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="index.html#contact">Contact</a>
+</nav>
+
+</header>
+
+
+<section id="publications">
+
+<h1>GSI-P photo-gallery</h1>
+
+
 <style>
 
-/* Gallery title */
-
-.gallery-header {
-    text-align: center;
-    margin: 40px;
-}
-
-
-/* Masonry style gallery */
-
 .photo-gallery {
+
     column-count: 4;
     column-gap: 15px;
     padding: 20px;
@@ -30,12 +63,17 @@
 
 
 .photo-gallery img {
+
     width: 100%;
     margin-bottom: 15px;
+
     border-radius: 12px;
+
     display: block;
 
-    transition: 
+    cursor: pointer;
+
+    transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
 }
@@ -49,8 +87,6 @@
         0 10px 25px rgba(0,0,0,0.35);
 }
 
-
-/* Responsive */
 
 @media (max-width: 1100px) {
 
@@ -75,76 +111,159 @@
     }
 }
 
+
+
+/* Lightbox */
+
+#lightbox {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.9);
+
+    z-index: 1000;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+#lightbox img {
+
+    max-width: 90%;
+    max-height: 90%;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,0.8);
+}
+
 </style>
 
-</head>
-
-
-<body>
-
-
-<div class="gallery-header">
-
-<h1>
-GSIP Lab Gallery
-</h1>
-
-
-<p>
-Research activities, experiments, conferences,
-students, collaborations and everyday moments.
-</p>
-
-</div>
-
-
 <div class="photo-gallery">
-
-    <img src="images/photos/0-9m-skipper2-CC.jpg" alt="0-9m-skipper2-CC">
-    <img src="images/photos/20220520_134309_HDR.jpg" alt="20220520_134309_HDR">
-    <img src="images/photos/20220520_134320.jpg" alt="20220520_134320">
-    <img src="images/photos/DSC01867.JPG" alt="DSC01867">
-    <img src="images/photos/IMG_20170901_094021843.jpg" alt="IMG_20170901_094021843">
-    <img src="images/photos/PXL_20221205_173052848.jpg" alt="PXL_20221205_173052848">
-    <img src="images/photos/PXL_20221213_152824336.jpg" alt="PXL_20221213_152824336">
-    <img src="images/photos/PXL_20221213_152836772.jpg" alt="PXL_20221213_152836772">
-    <img src="images/photos/PXL_20230217_163044852.jpg" alt="PXL_20230217_163044852">
-    <img src="images/photos/PXL_20230328_183630797.jpg" alt="PXL_20230328_183630797">
-    <img src="images/photos/PXL_20230330_174310423.jpg" alt="PXL_20230330_174310423">
-    <img src="images/photos/PXL_20230330_174331986.jpg" alt="PXL_20230330_174331986">
-    <img src="images/photos/PXL_20230414_182900402.jpg" alt="PXL_20230414_182900402">
-    <img src="images/photos/PXL_20230515_205319044.jpg" alt="PXL_20230515_205319044">
-    <img src="images/photos/PXL_20230516_161123179.jpg" alt="PXL_20230516_161123179">
-    <img src="images/photos/PXL_20230516_161132131.jpg" alt="PXL_20230516_161132131">
-    <img src="images/photos/PXL_20230516_161150548.jpg" alt="PXL_20230516_161150548">
-    <img src="images/photos/PXL_20230529_170255281.jpg" alt="PXL_20230529_170255281">
-    <img src="images/photos/PXL_20230602_131119548.jpg" alt="PXL_20230602_131119548">
-    <img src="images/photos/PXL_20230602_131332319.jpg" alt="PXL_20230602_131332319">
-    <img src="images/photos/PXL_20230612_125849441.jpg" alt="PXL_20230612_125849441">
-    <img src="images/photos/PXL_20231204_202825121.jpg" alt="PXL_20231204_202825121">
-    <img src="images/photos/PXL_20231207_195508670.jpg" alt="PXL_20231207_195508670">
-    <img src="images/photos/PXL_20240513_162633030.jpg" alt="PXL_20240513_162633030">
-    <img src="images/photos/PXL_20240515_202053200.jpg" alt="PXL_20240515_202053200">
-    <img src="images/photos/PXL_20240604_150808153.jpg" alt="PXL_20240604_150808153">
-    <img src="images/photos/PXL_20241121_151037602.jpg" alt="PXL_20241121_151037602">
-    <img src="images/photos/PXL_20250613_172555424.jpg" alt="PXL_20250613_172555424">
-    <img src="images/photos/PXL_20260303_135305619.jpg" alt="PXL_20260303_135305619">
-    <img src="images/photos/PXL_20260310_175255291.jpg" alt="PXL_20260310_175255291">
-    <img src="images/photos/PXL_20260319_142254786.jpg" alt="PXL_20260319_142254786">
-    <img src="images/photos/PXL_20260520_172156027.jpg" alt="PXL_20260520_172156027">
-    <img src="images/photos/PXL_20260526_161028107.jpg" alt="PXL_20260526_161028107">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.17.28 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.17.28 AM">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.18.00 AM (1).jpeg" alt="WhatsApp Image 2026-06-13 at 11.18.00 AM (1)">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.20.55 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.20.55 AM">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.21.14 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.21.14 AM">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.22.35 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.22.35 AM">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.23.02 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.23.02 AM">
-    <img src="images/photos/WhatsApp Image 2026-06-13 at 11.23.55 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.23.55 AM">
-    <img src="images/photos/WP_20141223_005.jpg" alt="WP_20141223_005">
-    <img src="images/photos/WP_20150306_002.jpg" alt="WP_20150306_002">
-    <img src="images/photos/WP_20170522_003.jpg" alt="WP_20170522_003">
+<img src="images/photos/0-9m-skipper2-CC.jpg" alt="0-9m-skipper2-CC">
+<img src="images/photos/20220520_134309_HDR.jpg" alt="20220520_134309_HDR">
+<img src="images/photos/20220520_134320.jpg" alt="20220520_134320">
+<img src="images/photos/6878-imgG.jpeg" alt="6878-imgG">
+<img src="images/photos/IMG_20170901_094021843.jpg" alt="IMG_20170901_094021843">
+<img src="images/photos/PXL_20221205_173052848.jpg" alt="PXL_20221205_173052848">
+<img src="images/photos/PXL_20221213_152824336.jpg" alt="PXL_20221213_152824336">
+<img src="images/photos/PXL_20221213_152836772.jpg" alt="PXL_20221213_152836772">
+<img src="images/photos/PXL_20230217_163044852.jpg" alt="PXL_20230217_163044852">
+<img src="images/photos/PXL_20230328_183630797 - copia.jpg" alt="PXL_20230328_183630797 - copia">
+<img src="images/photos/PXL_20230328_183630797.jpg" alt="PXL_20230328_183630797">
+<img src="images/photos/PXL_20230330_174310423.jpg" alt="PXL_20230330_174310423">
+<img src="images/photos/PXL_20230330_174331986.jpg" alt="PXL_20230330_174331986">
+<img src="images/photos/PXL_20230414_182900402.jpg" alt="PXL_20230414_182900402">
+<img src="images/photos/PXL_20230515_205319044.jpg" alt="PXL_20230515_205319044">
+<img src="images/photos/PXL_20230516_161123179.jpg" alt="PXL_20230516_161123179">
+<img src="images/photos/PXL_20230516_161132131.jpg" alt="PXL_20230516_161132131">
+<img src="images/photos/PXL_20230516_161150548.jpg" alt="PXL_20230516_161150548">
+<img src="images/photos/PXL_20230529_170255281.jpg" alt="PXL_20230529_170255281">
+<img src="images/photos/PXL_20230602_131119548.jpg" alt="PXL_20230602_131119548">
+<img src="images/photos/PXL_20230602_131332319.jpg" alt="PXL_20230602_131332319">
+<img src="images/photos/PXL_20230612_125849441.jpg" alt="PXL_20230612_125849441">
+<img src="images/photos/PXL_20231204_202825121.jpg" alt="PXL_20231204_202825121">
+<img src="images/photos/PXL_20231207_195508670.jpg" alt="PXL_20231207_195508670">
+<img src="images/photos/PXL_20240513_162633030.jpg" alt="PXL_20240513_162633030">
+<img src="images/photos/PXL_20240515_202053200.jpg" alt="PXL_20240515_202053200">
+<img src="images/photos/PXL_20240604_150808153.jpg" alt="PXL_20240604_150808153">
+<img src="images/photos/PXL_20241121_151037602.jpg" alt="PXL_20241121_151037602">
+<img src="images/photos/PXL_20250613_172555424.jpg" alt="PXL_20250613_172555424">
+<img src="images/photos/PXL_20260303_135305619.jpg" alt="PXL_20260303_135305619">
+<img src="images/photos/PXL_20260310_175255291.jpg" alt="PXL_20260310_175255291">
+<img src="images/photos/PXL_20260319_142254786.jpg" alt="PXL_20260319_142254786">
+<img src="images/photos/PXL_20260520_172156027.jpg" alt="PXL_20260520_172156027">
+<img src="images/photos/PXL_20260526_161028107.jpg" alt="PXL_20260526_161028107">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.17.28 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.17.28 AM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.18.00 AM (1).jpeg" alt="WhatsApp Image 2026-06-13 at 11.18.00 AM (1)">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.20.55 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.20.55 AM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.21.14 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.21.14 AM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.22.35 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.22.35 AM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.23.02 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.23.02 AM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 11.23.55 AM.jpeg" alt="WhatsApp Image 2026-06-13 at 11.23.55 AM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 2.30.13 PM (1).jpeg" alt="WhatsApp Image 2026-06-13 at 2.30.13 PM (1)">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 2.30.13 PM.jpeg" alt="WhatsApp Image 2026-06-13 at 2.30.13 PM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 2.35.58 PM.jpeg" alt="WhatsApp Image 2026-06-13 at 2.35.58 PM">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 2.35.59 PM (1).jpeg" alt="WhatsApp Image 2026-06-13 at 2.35.59 PM (1)">
+<img src="images/photos/WhatsApp Image 2026-06-13 at 2.35.59 PM.jpeg" alt="WhatsApp Image 2026-06-13 at 2.35.59 PM">
+<img src="images/photos/WP_20141223_005.jpg" alt="WP_20141223_005">
+<img src="images/photos/WP_20150306_002.jpg" alt="WP_20150306_002">
+<img src="images/photos/WP_20170522_003.jpg" alt="WP_20170522_003">
 
 </div>
+
+
+<div id="lightbox">
+
+    <img id="lightbox-img" src="">
+
+</div>
+
+
+<script>
+
+
+const images =
+    document.querySelectorAll(".photo-gallery img");
+
+
+const lightbox =
+    document.getElementById("lightbox");
+
+
+const lightboxImg =
+    document.getElementById("lightbox-img");
+
+
+
+images.forEach(img => {
+
+    img.addEventListener("click", () => {
+
+        lightboxImg.src = img.src;
+
+        lightbox.style.display = "flex";
+
+    });
+
+});
+
+
+
+lightbox.addEventListener("click", () => {
+
+    lightbox.style.display = "none";
+
+});
+
+
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        lightbox.style.display = "none";
+
+    }
+
+});
+
+
+</script>
+
+
+</section>
+
 
 </body>
 

@@ -175,6 +175,7 @@ def html_header(title):
     <a href="publications.html">Publications</a>
     <a href="theses_projects.html">Theses & Projects</a>
     <a href="index.html#projects">Projects</a>
+    <a href="gallery.html">Gallery</a>
     <a href="index.html#contact">Contact</a>
 </nav>
 
